@@ -34,22 +34,23 @@ results_table = pd.DataFrame({
 })
 st.dataframe(results_table)
 
-st.subheader("1. Theoretical Time Complexities of Sorting Algorithms")
+st.subheader("2. Theoretical Time Complexities of Sorting Algorithms")
 
-# Check if images are available (use relative or uploaded file path)
-st.image("images/your_image.png", caption="Comparison of Sorting Algorithms", use_column_width=True)
+# Plotting theoretical complexities
+n = np.linspace(1, 32000, 1000)  # Input size range for plotting
 
-n = np.linspace(1, 100, 100)  # Input size range
-selection_sort = n2
-insertion_sort_best = n
-insertion_sort_worst = n2
-heap_sort = n * np.log2(n)
+# Theoretical time complexity curves
+selection_sort_theoretical = n**2
+insertion_sort_best = n  # Best case (O(n))
+insertion_sort_worst = n**2  # Worst case (O(n^2))
+heap_sort_theoretical_curve = n * np.log2(n)
 
 plt.figure(figsize=(10, 6))
-plt.plot(n, selection_sort, label='Selection Sort (O(n^2))', linestyle='--', color='blue')
+plt.plot(n, selection_sort_theoretical, label='Selection Sort (O(n^2))', linestyle='--', color='blue')
 plt.plot(n, insertion_sort_best, label='Insertion Sort Best Case (O(n))', linestyle='-', color='green')
 plt.plot(n, insertion_sort_worst, label='Insertion Sort Worst Case (O(n^2))', linestyle='--', color='green')
-plt.plot(n, heap_sort, label='Heap Sort (O(n log n))', linestyle='-', color='red')
+plt.plot(n, heap_sort_theoretical_curve, label='Heap Sort (O(n log n))', linestyle='-', color='red')
+
 plt.xlabel('Input Size (n)')
 plt.ylabel('Time Complexity')
 plt.title('Comparison of Sorting Algorithms Time Complexity')
@@ -57,19 +58,20 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 
-plt.show()
+# Display the plot in Streamlit
+st.pyplot(plt)
 
 st.write("""
 ### Selection Sort:
-- Its curve is very steep because it always takes $O(n^2)$ time, no matter the input.
+- Its curve is very steep because it always takes \(O(n^2)\) time, no matter the input.
 - This makes it slow for large datasets.
 
 ### Insertion Sort:
-- When the data is already sorted, it’s much faster ($O(n)$), shown by the straight, gentle line.
-- But for reversed or random data, it becomes as slow as Selection Sort ($O(n^2)$), with a steep curve.
+- When the data is already sorted, it’s much faster (\(O(n)\)), shown by the straight, gentle line.
+- But for reversed or random data, it becomes as slow as Selection Sort (\(O(n^2)\)), with a steep curve.
 
 ### Heap Sort:
-- Its curve grows slowly compared to the others because it takes $O(n \log n)$ time.
+- Its curve grows slowly compared to the others because it takes \(O(n \log n)\) time.
 - This makes Heap Sort consistently faster for larger inputs.
 
 ### Summary:
@@ -78,23 +80,23 @@ st.write("""
 - **Selection Sort**: It’s generally not used because it’s always slow.
 """)
 
-st.subheader("2. Experimental Time Complexities of Sorting Algorithms")
+st.subheader("3. Experimental Time Complexities of Sorting Algorithms")
 
-# Check if image exists and display
-st.image("images/your_second_image.png", use_column_width=True)
+# Plotting experimental times
 plt.figure(figsize=(10, 6))
-plt.plot(iterations, insertion_sort_times, label='Insertion Sort', linestyle='-', marker='o', color='green')
-plt.plot(iterations, selection_sort_times, label='Selection Sort', linestyle='-', marker='o', color='blue')
-plt.plot(iterations, heap_sort_times, label='Heap Sort', linestyle='-', marker='o', color='red')
+plt.plot(n_values, insertion_times, label='Insertion Sort', linestyle='-', marker='o', color='green')
+plt.plot(n_values, selection_times, label='Selection Sort', linestyle='-', marker='o', color='blue')
+plt.plot(n_values, heap_sort_times, label='Heap Sort', linestyle='-', marker='o', color='red')
 
-plt.xlabel('Number of Iterations (n)')
-plt.ylabel('Time (T)')
-plt.title('Comparison of Sorting Algorithm Times')
+plt.xlabel('Array Size (n)')
+plt.ylabel('Time (ms)')
+plt.title('Comparison of Sorting Algorithm Times (Experimental)')
 plt.legend(title='Sort Types')
 plt.grid(True)
 plt.tight_layout()
 
-plt.show()
+# Display the plot in Streamlit
+st.pyplot(plt)
 
 # Observations section
 st.title("Sorting Algorithm Observations")
@@ -102,11 +104,11 @@ st.title("Sorting Algorithm Observations")
 st.subheader("Observations")
 st.write("""
 ### Insertion Sort and Selection Sort:
-- Both exhibit quadratic time complexity ($O(n^2)$). This is evident from the steep upward curve of their lines as the input size ($n$) increases.
-- Insertion Sort appears to have slightly better performance than Selection Sort for smaller input sizes, but the difference becomes negligible as $n$ grows larger.
+- Both exhibit quadratic time complexity (\(O(n^2)\)). This is evident from the steep upward curve of their lines as the input size (\(n\)) increases.
+- Insertion Sort appears to have slightly better performance than Selection Sort for smaller input sizes, but the difference becomes negligible as \(n\) grows larger.
 
 ### Heap Sort:
-- Heap Sort has a more favorable time complexity of $O(n \log n)$. This is reflected in the relatively gentle upward curve, indicating that its execution time increases more slowly with input size.
+- Heap Sort has a more favorable time complexity of \(O(n \log n)\). This is reflected in the relatively gentle upward curve, indicating that its execution time increases more slowly with input size.
 - Heap Sort consistently outperforms both Insertion Sort and Selection Sort, especially for larger datasets.
 
 ### General Trend:
@@ -114,9 +116,9 @@ st.write("""
 - The quadratic growth rate of Insertion Sort and Selection Sort becomes a major bottleneck for large inputs, making them impractical for real-world applications.
 
 ### Possible Reasons for the Behavior:
-- **Insertion Sort**: Efficient for nearly sorted data ($O(n)$ in the best case). However, in the worst-case scenario (reverse order), it degrades to quadratic time complexity ($O(n^2)$).
-- **Selection Sort**: Makes a fixed number of comparisons ($n(n-1)/2$) but involves frequent swaps, which increase runtime, particularly for large datasets.
-- **Heap Sort**: Uses a heap data structure to achieve $O(n \log n)$ complexity. While more complex to implement, its efficiency makes it a better choice for larger inputs.
+- **Insertion Sort**: Efficient for nearly sorted data (\(O(n)\) in the best case). However, in the worst-case scenario (reverse order), it degrades to quadratic time complexity (\(O(n^2)\)).
+- **Selection Sort**: Makes a fixed number of comparisons (\(n(n-1)/2\)) but involves frequent swaps, which increase runtime, particularly for large datasets.
+- **Heap Sort**: Uses a heap data structure to achieve \(O(n \log n)\) complexity. While more complex to implement, its efficiency makes it a better choice for larger inputs.
 
 ### Conclusion:
 Heap Sort is the clear winner in terms of time complexity for this experiment. Insertion Sort and Selection Sort, while simpler to implement, are not suitable for large-scale sorting tasks due to their quadratic time complexity.
