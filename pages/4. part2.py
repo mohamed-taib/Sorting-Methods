@@ -99,9 +99,7 @@ plt.tight_layout()
 st.pyplot(plt)
 
 # Observations section
-st.title("Sorting Algorithm Observations")
 
-st.subheader("Observations")
 st.write("""
 ### Insertion Sort and Selection Sort:
 - Both exhibit quadratic time complexity (\(O(n^2)\)). This is evident from the steep upward curve of their lines as the input size (\(n\)) increases.
@@ -114,11 +112,6 @@ st.write("""
 ### General Trend:
 - The graph demonstrates that Heap Sort is significantly more efficient than Insertion Sort and Selection Sort for larger datasets.
 - The quadratic growth rate of Insertion Sort and Selection Sort becomes a major bottleneck for large inputs, making them impractical for real-world applications.
-
-### Possible Reasons for the Behavior:
-- **Insertion Sort**: Efficient for nearly sorted data (\(O(n)\) in the best case). However, in the worst-case scenario (reverse order), it degrades to quadratic time complexity (\(O(n^2)\)).
-- **Selection Sort**: Makes a fixed number of comparisons (\(n(n-1)/2\)) but involves frequent swaps, which increase runtime, particularly for large datasets.
-- **Heap Sort**: Uses a heap data structure to achieve \(O(n \log n)\) complexity. While more complex to implement, its efficiency makes it a better choice for larger inputs.
 
 ### Conclusion:
 Heap Sort is the clear winner in terms of time complexity for this experiment. Insertion Sort and Selection Sort, while simpler to implement, are not suitable for large-scale sorting tasks due to their quadratic time complexity.
