@@ -39,6 +39,26 @@ st.subheader("1. Theoretical Time Complexities of Sorting Algorithms")
 # Check if images are available (use relative or uploaded file path)
 st.image("images/your_image.png", caption="Comparison of Sorting Algorithms", use_column_width=True)
 
+n = np.linspace(1, 100, 100)  # Input size range
+selection_sort = n2
+insertion_sort_best = n
+insertion_sort_worst = n2
+heap_sort = n * np.log2(n)
+
+plt.figure(figsize=(10, 6))
+plt.plot(n, selection_sort, label='Selection Sort (O(n^2))', linestyle='--', color='blue')
+plt.plot(n, insertion_sort_best, label='Insertion Sort Best Case (O(n))', linestyle='-', color='green')
+plt.plot(n, insertion_sort_worst, label='Insertion Sort Worst Case (O(n^2))', linestyle='--', color='green')
+plt.plot(n, heap_sort, label='Heap Sort (O(n log n))', linestyle='-', color='red')
+plt.xlabel('Input Size (n)')
+plt.ylabel('Time Complexity')
+plt.title('Comparison of Sorting Algorithms Time Complexity')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+
+plt.show()
+
 st.write("""
 ### Selection Sort:
 - Its curve is very steep because it always takes $O(n^2)$ time, no matter the input.
@@ -62,6 +82,19 @@ st.subheader("2. Experimental Time Complexities of Sorting Algorithms")
 
 # Check if image exists and display
 st.image("images/your_second_image.png", use_column_width=True)
+plt.figure(figsize=(10, 6))
+plt.plot(iterations, insertion_sort_times, label='Insertion Sort', linestyle='-', marker='o', color='green')
+plt.plot(iterations, selection_sort_times, label='Selection Sort', linestyle='-', marker='o', color='blue')
+plt.plot(iterations, heap_sort_times, label='Heap Sort', linestyle='-', marker='o', color='red')
+
+plt.xlabel('Number of Iterations (n)')
+plt.ylabel('Time (T)')
+plt.title('Comparison of Sorting Algorithm Times')
+plt.legend(title='Sort Types')
+plt.grid(True)
+plt.tight_layout()
+
+plt.show()
 
 # Observations section
 st.title("Sorting Algorithm Observations")
